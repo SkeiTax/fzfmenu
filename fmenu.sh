@@ -4,6 +4,7 @@ pwd=${pwd:-"$HOME/.local/bin/fzfmenu"}
 
 opt='
   --height 40%
+  --min-height 15
   --layout=reverse 
   --border 
   --preview-window="right:70%" 
