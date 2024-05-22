@@ -1,4 +1,4 @@
-# exit
+# Command
 
 Select this to exit
 
