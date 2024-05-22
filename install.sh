@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-echo $SCRIPT_DIR
+# echo $SCRIPT_DIR
 
 rm -rf $HOME/.local/bin/fzfmenu.bac
 mv $HOME/.local/bin/fzfmenu $HOME/.local/bin/fzfmenu.bac 2> /dev/null
