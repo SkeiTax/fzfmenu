@@ -22,6 +22,6 @@ export command=$(ls "$pwd/func/" | fzf \
 export FZF_DEFAULT_OPTS=$opt" --prompt=\"$comand \""
 export pwd="$pwd/func/$command"
 
-if [[ ! -x "$pwd/${command}.sh" ]]; then exit 0; fi
+if [[ -z "${command}" ]]; then exit 0; fi
 
 . $pwd/${command}.sh
