@@ -1,6 +1,6 @@
 #! /bin/bash
 
-pwd=${pwd:-"$HOME/.local/bin/fzfmenu"}
+fmwd=${fmwd:-"$HOME/.local/bin/fzfmenu"}
 
 opt='
   --height 40%
@@ -12,17 +12,25 @@ opt='
   --preview-label-pos=5
 '
 
-export FZF_DEFAULT_OPTS=$opt" --prompt=\"$command \""
+export FZF_DEFAULT_OPTS=$opt" --prompt=\"$cmd\""
 
-export command=$(ls "$pwd/func/" | fzf \
-  --preview="bat --color=always -p $pwd/func/{}/desc.md 2> /dev/null || \
-    bat --color=always -p $pwd/desc.md"
-  ) || exit 0
+_fmwd=$fmwd
 
+ret=2
 
-export FZF_DEFAULT_OPTS=$opt" --prompt=\"$comand \""
-export pwd="$pwd/func/$command"
+while [[ $ret = 2 ]]; do
+  fmwd=$_fmwd
+  export cmd=$(ls -a "$fmwd/func/" | grep -vP "(^\.$)|(^\.\w)" | fzf \
+    --preview="bat --color=always -p $fmwd/func/{}/desc.md 2> /dev/null || \
+      bat --color=always -p $fmwd/desc.md"
+    ) || exit 0
+  if [[ $cmd = .. ]]; then exit 2; fi
 
-if [[ -z "${command}" ]]; then exit 0; fi
+  export FZF_DEFAULT_OPTS=$opt" --prompt=\"$comand \""
+  export fmwd="$fmwd/func/$cmd"
 
-. $pwd/${command}.sh
+  if [[ -z "${cmd}" ]]; then exit 0; fi
+
+  $fmwd/${cmd}.sh
+  ret=$?
+done
