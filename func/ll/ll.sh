@@ -5,4 +5,4 @@ if [[ -n `whereis exa | awk '{ print $2 }'` ]]; then
 else
   ls --color -al
 fi
-
+exit 2

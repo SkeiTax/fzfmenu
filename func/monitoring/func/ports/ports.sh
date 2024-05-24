@@ -2,3 +2,4 @@
 
 
 netstat -tnlp
+exit 2
